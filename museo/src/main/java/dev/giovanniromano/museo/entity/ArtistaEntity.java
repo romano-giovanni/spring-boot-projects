@@ -18,7 +18,7 @@ public class ArtistaEntity {
 
     private Integer annoNascita;
 
-    private JsonNullable<Integer> annoMorte;
+    private Integer annoMorte;
 
     private String biografia;
 
@@ -30,7 +30,7 @@ public class ArtistaEntity {
     public ArtistaEntity() {
     }
 
-    public ArtistaEntity(Integer idArtista, String nomeArtista, Integer annoNascita, JsonNullable<Integer> annoMorte, String biografia, String nazionalita, ArtistaDto.TipologiaArtistaEnum tipologiaArtista) {
+    public ArtistaEntity(Integer idArtista, String nomeArtista, Integer annoNascita, Integer annoMorte, String biografia, String nazionalita, ArtistaDto.TipologiaArtistaEnum tipologiaArtista) {
         this.idArtista = idArtista;
         this.nomeArtista = nomeArtista;
         this.annoNascita = annoNascita;
@@ -64,11 +64,11 @@ public class ArtistaEntity {
         this.annoNascita = annoNascita;
     }
 
-    public JsonNullable<Integer> getAnnoMorte() {
+    public Integer getAnnoMorte() {
         return annoMorte;
     }
 
-    public void setAnnoMorte(JsonNullable<Integer> annoMorte) {
+    public void setAnnoMorte(Integer annoMorte) {
         this.annoMorte = annoMorte;
     }
 

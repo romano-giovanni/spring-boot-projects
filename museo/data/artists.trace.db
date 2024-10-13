@@ -1,0 +1,4 @@
+2024-10-13 21:42:34.448814+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM ARTISTA \000d\000a[*]SELECT * FROM OPERA"; SQL statement:
+SELECT * FROM ARTISTA 
+SELECT * FROM OPERA [42000-232]

@@ -215,7 +215,6 @@ components:
           example: 1452
         annoMorte:
           type: integer
-          nullable: true
           example: 1519
         biografia:
           type: string
