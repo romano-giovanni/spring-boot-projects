@@ -1,0 +1,246 @@
+openapi: 3.0.0
+info:
+  title: Museo API
+  description: API per la gestione delle opere e degli artisti del museo
+  version: 1.0.0
+
+paths:
+  /opere:
+    get:
+      summary: Ottieni tutte le opere
+      tags:
+        - Opere
+      responses:
+        '200':
+          description: Lista di opere
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaOperaDto'
+    post:
+      summary: Crea una nuova opera
+      tags:
+        - Opere
+      requestBody:
+        description: Dati della nuova opera
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperaDto'
+      responses:
+        '201':
+          description: Opera creata con successo
+
+  /opere/{idOpera}:
+    get:
+      summary: Ottieni una specifica opera
+      tags:
+        - Opere
+      parameters:
+        - name: idOpera
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli dell'opera
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperaDto'
+    put:
+      summary: Modifica un'opera
+      tags:
+        - Opere
+      parameters:
+        - name: idOpera
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dati aggiornati dell'opera
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperaDto'
+      responses:
+        '200':
+          description: Opera modificata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperaDto'
+    delete:
+      summary: Elimina un'opera
+      tags:
+        - Opere
+      parameters:
+        - name: idOpera
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Opera eliminata con successo
+
+  /artisti:
+    get:
+      summary: Ottieni tutti gli artisti
+      tags:
+        - Artisti
+      responses:
+        '200':
+          description: Lista di artisti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaArtistaDto'
+    post:
+      summary: Crea una nuova scheda artista
+      tags:
+        - Artisti
+      requestBody:
+        description: Dati del nuovo artista
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistaDto'
+      responses:
+        '201':
+          description: Artista creato con successo
+
+  /artisti/{idArtista}:
+    get:
+      summary: Ottieni un artista specifico
+      tags:
+        - Artisti
+      parameters:
+        - name: idArtista
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli dell'artista
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistaDto'
+    put:
+      summary: Modifica un artista
+      tags:
+        - Artisti
+      parameters:
+        - name: idArtista
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dati aggiornati dell'artista
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistaDto'
+      responses:
+        '200':
+          description: Artista modificato con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistaDto'
+    delete:
+      summary: Elimina un artista
+      tags:
+        - Artisti
+      parameters:
+        - name: idArtista
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Artista eliminato con successo
+
+components:
+  schemas:
+    OperaDto:
+      type: object
+      properties:
+        idOpera:
+          type: integer
+          example: 1
+          readOnly: true
+        nomeOpera:
+          type: string
+          example: "La Gioconda"
+        idAutore:
+          type: integer
+          example: 10
+        nomeAutore:
+          type: string
+          example: "Leonardo da Vinci"
+        annoProduzione:
+          type: integer
+          example: 1503
+        descrizione:
+          type: string
+          example: "Ritratto di Monna Lisa, moglie di Francesco del Giocondo"
+        tipologia:
+          type: string
+          enum: [pittura, scultura, fotografia, installazione]
+          example: pittura
+
+    ArtistaDto:
+      type: object
+      properties:
+        idArtista:
+          type: integer
+          example: 10
+          readOnly: true
+        nomeArtista:
+          type: string
+          example: "Leonardo da Vinci"
+        annoNascita:
+          type: integer
+          example: 1452
+        annoMorte:
+          type: integer
+          nullable: true
+          example: 1519
+        biografia:
+          type: string
+          example: "Leonardo da Vinci è stato un pittore, inventore e scienziato italiano."
+        nazionalita:
+          type: string
+          example: "Italiana"
+        tipologiaArtista:
+          type: string
+          enum: [pittore, scultore, fotografo, illustratore]
+          example: pittore
+      required:
+        - nomeArtista
+        - annoNascita
+        - biografia
+        - nazionalita
+        - tipologiaArtista
+
+    ListaArtistaDto:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ArtistaDto'
+
+    ListaOperaDto:
+      type: array
+      items:
+        $ref: '#/components/schemas/OperaDto'
+      

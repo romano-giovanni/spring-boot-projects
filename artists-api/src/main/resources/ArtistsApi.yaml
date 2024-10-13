@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Artists Api
+  description: |-
+    API to manage music artists, with CRUD operations and search functionality
+  contact:
+      email: mail@giovanniromano.dev  
+  version: 1.0.0
+tags:
+  - name: artist
+    description: All about artists
+paths:
+  /artist:
+    post:
+      tags:
+        - artist
+      summary: Add a new pet to the database
+      description: Add a new pet to the database
+      operationId: addArtist
+      requestBody:
+        description: Artist you want to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistDto'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content: 
+            application/json:
+             schema:
+              $ref: '#/components/schemas/ArtistDto'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /artist/{artistId}:
+    get:
+      tags:
+        - artist
+      summary: Finds artis by ID
+      description: Returns a single artist
+      operationId: getArtistById
+      parameters:
+        - name: artistId
+          in: path
+          description: ID of the artist to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDto'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ArtistDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Artist not found
+    put:
+      tags:
+        - artist
+      summary: Update an existing artist
+      description: Update an existing artist by ID
+      operationId: updateArtist
+      parameters:
+        - name: artistId
+          in: path
+          description: ID of the artist to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent artist in the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistDto'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDto'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Artist not found
+        '422':
+          description: Validation exception
+    delete:
+      tags:
+        - artist
+      summary: Deletes an artist
+      description: delete a artist
+      operationId: deleteArtist
+      parameters:
+        - name: artistId
+          in: path
+          description: Artist id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid artist value
+  /artist/search:
+    get:
+      tags:
+        - artist
+      summary: Finds artists by nationality or birth year
+      description: Find artists by nationality or birth year.
+      operationId: findArtistsByNationalityOrYear
+      parameters:
+        - name: nationality
+          in: query
+          description: Nationality to filter by
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: year
+          in: query
+          description: Birth year to filter by
+          required: false
+          explode: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistArray'
+        '400':
+          description: Invalid tag value
+components:
+  schemas:
+    ArtistDto:
+      description: Artist object that needs to be added to the store
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+          readOnly: true
+        type:
+          type: string
+          enum:
+            - solo
+            - group
+        name:
+          type: string
+          example: "Glenn"
+        surname:
+          type: string
+          example: "Gould"
+        stageName:
+          type: string
+          example: null
+        birthYear:
+          type: integer
+          format: int64
+          example: 1932
+        biography:
+         type: string
+         example: "Glenn Gould was a celebrated Canadian pianist known for his innovative interpretations of Bach's works and his eccentric performance style."
+        nationality:
+          type: string
+          example: "Canada"
+        genre:
+          type: string
+          example: classical
+          enum:
+            - pop
+            - rock
+            - jazz
+            - classical
+            - metal
+            - indie
+    ArtistArray:
+      description: List of artists
+      type: array
+      items:
+        $ref: '#/components/schemas/ArtistDto'
+        
