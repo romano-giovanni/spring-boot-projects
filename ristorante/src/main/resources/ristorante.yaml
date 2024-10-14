@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: Menu API
+  description: API per la gestione del menu di un ristorante
+  version: 1.0.0
+
+paths:
+  /menu:
+    post:
+      summary: Crea un nuovo piatto nel menu
+      operationId: createPiatto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PiattoDto'
+            example:
+              nomePiatto: "Spaghetti alla Carbonara"
+              ingredienti: "Spaghetti, Uova, Guanciale, Pecorino, Pepe"
+              prezzo: 12.5
+              tipologia: primo
+      responses:
+        '201':
+          description: Piatto creato con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PiattoDto'
+        '400':
+          description: Richiesta non valida
+  /menu/tipologia:
+    get:
+      summary: Estrae i piatti in base alla tipologia
+      operationId: getPiattiByTipologia
+      parameters:
+        - name: tipologia
+          in: query
+          required: true
+          schema:
+            type: string
+          description: La tipologia del piatto (es. Primo, Secondo, Dolce, etc.)
+      responses:
+        '200':
+          description: Lista dei piatti trovati
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PiattoDto'
+              example:
+                - idPiatto: 1
+                  nomePiatto: "Spaghetti alla Carbonara"
+                  ingredienti: "Spaghetti, Uova, Guanciale, Pecorino, Pepe"
+                  prezzo: 12.5
+                  tipologia: primo
+            # Rimosso `examples` per evitare conflitti
+        '404':
+          description: Nessun piatto trovato per la tipologia specificata
+  /menu/{idPiatto}:
+    get:
+      summary: Ottieni le informazioni di un piatto dato il suo ID
+      operationId: getPiattoById
+      parameters:
+        - name: idPiatto
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: L'ID del piatto
+      responses:
+        '200':
+          description: Informazioni sul piatto trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PiattoDto'
+
+components:
+  schemas:
+    PiattoDto:
+      type: object
+      properties:
+        idPiatto:
+          type: integer
+          readOnly: true
+          description: L'ID univoco del piatto
+        nomePiatto:
+          type: string
+          description: Il nome del piatto
+        ingredienti:
+          type: string
+          description: Gli ingredienti del piatto separati da virgola
+        prezzo:
+          type: number
+          format: float
+          description: Il prezzo al pubblico del piatto
+        tipologia:
+          type: string
+          enum:
+            - antipasto
+            - contorno
+            - primo
+            - secondo
+            - dolce
+          description: La tipologia del piatto (Contorno, Primo, Secondo, Dolce, etc.)
+      required:
+        - nomePiatto
+        - ingredienti
+        - prezzo
+        - tipologia
