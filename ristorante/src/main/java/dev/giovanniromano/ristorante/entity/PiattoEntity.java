@@ -2,7 +2,13 @@ package dev.giovanniromano.ristorante.entity;
 
 import dev.giovanniromano.ristorante.model.PiattoDto;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name="piatto")
 public class PiattoEntity {
@@ -29,65 +35,4 @@ public class PiattoEntity {
 
     @Column(name="file_foto")
     private String fileFoto;
-
-    public PiattoEntity() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getIngredienti() {
-        return ingredienti;
-    }
-
-    public void setIngredienti(String ingredienti) {
-        this.ingredienti = ingredienti;
-    }
-
-    public Float getCostoCliente() {
-        return costoCliente;
-    }
-
-    public void setCostoCliente(Float costoCliente) {
-        this.costoCliente = costoCliente;
-    }
-
-    public PiattoDto.TipologiaEnum getTipoPietanza() {
-        return tipoPietanza;
-    }
-
-    public void setTipoPietanza(PiattoDto.TipologiaEnum tipoPietanza) {
-        this.tipoPietanza = tipoPietanza;
-    }
-
-    public Float getCostoProduzione() {
-        return costoProduzione;
-    }
-
-    public void setCostoProduzione(Float costoProduzione) {
-        this.costoProduzione = costoProduzione;
-    }
-
-    public String getFileFoto() {
-        return fileFoto;
-    }
-
-    public void setFileFoto(String fileFoto) {
-        this.fileFoto = fileFoto;
-    }
-
-
 }
