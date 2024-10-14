@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Portale
+  description: Portale
+  version: 1.0.0
+
+paths:
+  /portale/artist/{idArtista}:
+    get:
+      summary: Ottieni una specifica opera
+      tags:
+        - portale
+      parameters:
+        - name: idArtista
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli dell'opera
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistWithAlbums'
+                
+  /portale/album/{idAlbum}:
+    get:
+      summary: Ottieni Album e scheda Artista
+      tags:
+        - portale
+      parameters:
+        - name: idAlbum
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli dell'opera
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumInfo'
+  /portale/genre/{genre}:
+    get:
+      summary: Ottieni lista di album da genere
+      tags:
+        - portale
+      parameters:
+        - name: genre
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dettagli dell'opera
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumList'
+  
+components:
+  schemas:
+    ArtistWithAlbums:
+      type: object
+      properties:
+        listaAlbum:
+          $ref: '#/components/schemas/AlbumList'
+        artista:
+          $ref: '#/components/schemas/ArtistDto'
+    AlbumInfo:
+      type: object
+      properties:
+        album:
+          $ref: '#/components/schemas/AlbumDto'
+        artista:
+          $ref: '#/components/schemas/ArtistDto'
+    ArtistDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        type:
+          type: string
+          enum: [solo, group]
+        name:
+          type: string
+        surname:
+          type: string
+        stageName:
+          type: string
+        birthYear:
+          type: integer
+        biography:
+          type: string
+        genre:
+          type: string
+          enum: [pop, rock, jazz]
+        nationality:
+          type: string
+      required:
+        - name
+        - surname
+        - stageName
+        - birthYear
+        - biography
+        - genre
+        - nationality
+        
+    AlbumDto:
+      type: object
+      properties:
+        idAlbum:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+          readOnly: true
+        title:
+          type: string
+          description: Titolo dell' album
+          example: 'Acqua per sta terra'
+        artist:
+          type: string
+          description: Artista dell'album
+          example: 'Sud Sound System'
+        year:
+          type: integer
+        genre:
+          type: string
+          enum:
+            - pop
+            - rock
+            - jazz
+        idArtist:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+        tracks:
+          type: array
+          items:
+            type: string
+
+    AlbumList:
+      type: array
+      items:
+        $ref: '#/components/schemas/AlbumDto'
+      
