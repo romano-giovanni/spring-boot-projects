@@ -35,7 +35,7 @@ public class PiattoController implements MenuApi {
     public ResponseEntity<List<PiattoDto>> getPiattiByTipologia(
             @NotNull @Parameter(name = "tipologia", description = "La tipologia del piatto (es. Primo, Secondo, Dolce, etc.)", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "tipologia", required = true) String tipologia
     ) {
-        List<PiattoDto> dtoList = service.searchByType(PiattoDto.TipologiaEnum.valueOf(tipologia));
+        List<PiattoDto> dtoList = service.searchByType(PiattoDto.TipologiaEnum.fromValue(tipologia));
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
