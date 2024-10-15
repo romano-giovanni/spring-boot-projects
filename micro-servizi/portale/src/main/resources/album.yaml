@@ -1,0 +1,192 @@
+openapi: 3.0.3
+ 
+info:
+  title: 'Music API V3'
+  version: '1.0.0'
+ 
+paths:
+  /album:
+    # Metodo POST per aggiungere album
+    post:
+      tags:
+        - album
+      summary: 'Aggiungi album'
+      operationId: createAlbum
+      requestBody:
+        description: 'Album da aggiungere'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumDTO'
+      responses:
+        '201':
+          description: 'Album aggiunto con successo.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: 'Nessun album con ID trovato.'
+        '500':
+          description: 'Errore generico del server.'
+  /album/{id}:
+    # Metodo GET esposto su /album/ID
+    get:
+      tags:
+        - album
+      summary: 'Ritorna un album'
+      description: 'Ritorna un album dato un ID.'
+      operationId: getAlbum
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+      responses:
+        '200':
+          description: 'Ritorna album per ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: 'Nessun album con ID trovato.'
+        '500':
+          description: 'Errore generico del server.'
+    # Metodo PUT esposto su /album/ID
+    put:
+      tags:
+        - album
+      summary: 'Aggiorna un album'
+      description: 'Aggiorna un album dato un ID.'
+      operationId: updateAlbum
+      requestBody:
+        description: 'Campi da aggiornare'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumDTO'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: 'Nessun album con ID trovato.'
+        '500':
+          description: 'Errore generico del server.'
+    # Metodo DELETE epsosto su /album/ID
+    delete:
+      tags:
+        - album
+      operationId: deleteAlbum
+      summary: 'Elimina un album'
+      description: 'Elimina un album dato un ID.'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: 'Nessun album con ID trovato.'
+        '500':
+          description: 'Errore generico del server.'
+ 
+  /search:
+    # Metodo GET esposto su /search
+    get:
+      tags:
+        - search
+      summary: 'Cerca album per parametri'
+      description: 'Cerca album per parametri titolo album, ID artista o genere album.'
+      operationId: searchAlbums
+      parameters:
+        - name: title
+          description: "Titolo dell'album da cercare"
+          in: query
+          schema:
+            type: string
+        - name: idArtist
+          description: "ID dell'artista da cercare"
+          in: query
+          schema:
+            type: string
+        - name: genre
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Album trovati.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumList'
+        '500':
+          description: 'Errore generico del server.'
+ 
+components:
+  # Creazione oggetti
+  schemas:
+    AlbumDTO:
+      type: object
+      properties:
+        idAlbum:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+          readOnly: true
+        title:
+          type: string
+          description: Titolo dell' album
+          example: 'Acqua per sta terra'
+        artist:
+          type: string
+          description: Artista dell'album
+          example: 'Sud Sound System'
+        year:
+          type: integer
+        genre:
+          type: string
+          enum:
+            - pop
+            - rock
+            - jazz
+        idArtist:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+        tracks:
+          type: array
+          items:
+            type: string
+    # Array di oggetti (AlbumDTO)
+    AlbumList:
+      type: array
+      items:
+        $ref: '#/components/schemas/AlbumDTO'
