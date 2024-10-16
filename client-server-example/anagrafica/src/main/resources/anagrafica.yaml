@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Swagger Anagrafica API - OpenAPI 3.0
+  description: |
+    API per la gestione di Anagrafiche con operazioni CRUD.
+  version: 1.0.0
+
+paths:
+  /anagrafica:
+    post:
+      tags:
+        - anagrafica
+      summary: Crea una nuova Anagrafica
+      description: Crea una nuova Anagrafica
+      operationId: createAnagrafica
+      requestBody:
+        description: Crea una nuova Anagrafica
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnagraficaDTO'
+        required: true
+      responses:
+        '200':
+          description: Operazione completata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnagraficaDTO'
+        '400':
+          description: ID non valido fornito
+        '422':
+          description: Eccezione di validazione
+    get:
+      tags:
+        - anagrafica
+      summary: Restituisce tutte le Anagrafiche
+      description: Restituisce l'elenco di tutte le Anagrafiche
+      operationId: getAllAnagrafica
+      responses:
+        '200':
+          description: Elenco di Anagrafiche ottenuto con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnagraficaDTOList'
+
+  /anagrafica/{idAnagrafica}:
+    get:
+      tags:
+        - anagrafica
+      summary: Trova un'Anagrafica per ID
+      description: Restituisce un'Anagrafica in base all'ID fornito
+      operationId: findAnagraficaById
+      parameters:
+        - name: idAnagrafica
+          in: path
+          description: ID dell'anagrafica da cercare
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operazione completata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnagraficaDTO'
+        '404':
+          description: Anagrafica non trovata
+    put:
+      tags:
+        - anagrafica
+      summary: Aggiorna un'Anagrafica
+      description: Aggiorna i dati di un'Anagrafica esistente
+      operationId: updateAnagrafica
+      parameters:
+        - name: idAnagrafica
+          in: path
+          description: ID dell'anagrafica da aggiornare
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: I nuovi dati dell'Anagrafica
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnagraficaDTO'
+        required: true
+      responses:
+        '200':
+          description: Operazione completata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnagraficaDTO'
+        '400':
+          description: ID non valido fornito
+        '404':
+          description: Anagrafica non trovata
+        '422':
+          description: Eccezione di validazione
+    delete:
+      tags:
+        - anagrafica
+      summary: Elimina un'Anagrafica
+      description: Elimina un'Anagrafica tramite ID
+      operationId: deleteAnagrafica
+      parameters:
+        - name: idAnagrafica
+          in: path
+          description: ID dell'anagrafica da eliminare
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operazione completata con successo
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: ID non valido fornito
+        '404':
+          description: Anagrafica non trovata
+        '422':
+          description: Eccezione di validazione
+
+components:
+  schemas:
+    AnagraficaDTO:
+      type: object
+      properties:
+        idAnagrafica:
+          type: integer
+          readOnly: true
+          format: int64
+        nome:
+          type: string
+          example: "Mario"
+        cognome:
+          type: string
+          example: "Rossi"
+        telefono:
+          type: string
+          example: "3467888343"
+        elencoEmail:
+          type: array
+          items:
+            type: string
+          example: ["mario.rossi@example.com", "rossi.mario@altro.com"]
+        dataNascita:
+          type: string
+          format: date
+          example: "1980-10-16"
+
+    AnagraficaDTOList:
+      type: array
+      items:
+        $ref: '#/components/schemas/AnagraficaDTO'
