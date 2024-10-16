@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: Grocery API
+  description: API per gestire gli oggetti di generi alimentari
+  version: 1.0.0
+
+paths:
+  /groceryItem:
+    post:
+      summary: Crea un nuovo elemento di generi alimentari
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroceryItemDto'
+      responses:
+        '201':
+          description: Creato con successo
+        '400':
+          description: Richiesta non valida
+    get:
+      summary: Ottieni tutti gli elementi di generi alimentari
+      responses:
+        '200':
+          description: Lista di tutti gli elementi di generi alimentari
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroceryItemDto'
+
+  /groceryItem/{id}:
+    get:
+      summary: Ottieni un elemento di generi alimentari per ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: L'ID dell'elemento di generi alimentari
+      responses:
+        '200':
+          description: Dettagli dell'elemento di generi alimentari
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryItemDto'
+        '404':
+          description: Elemento non trovato
+    delete:
+      summary: Elimina un elemento per ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: L'ID dell'elemento di generi alimentari
+      responses:
+        '200':
+          description: Dettagli dell'elemento di generi alimentari
+        '404':
+          description: Elemento non trovato
+    put:
+      summary: Modifica un elemento di generi alimentari per ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: L'ID dell'elemento di generi alimentari
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroceryItemDto'
+      responses:
+        '200':
+          description: Dettagli dell'elemento di generi alimentari
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryItemDto'
+        '404':
+          description: Elemento non trovato
+
+components:
+  schemas:
+    GroceryItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: L'ID dell'elemento di generi alimentari
+        name:
+          type: string
+          description: Il nome dell'elemento
+        quantity:
+          type: integer
+          description: La quantità dell'elemento
+        category:
+          type: string
+          description: La categoria dell'elemento
+      required:
+        - name
+        - quantity
+        - category
