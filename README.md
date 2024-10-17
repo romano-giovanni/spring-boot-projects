@@ -309,10 +309,18 @@ Use this sample code by Silvio ;)
 
 ## Misc
 
-_Ignore this :P_
-
-### Links:
-- [Case Insensitive Queries in Spring Data](https://www.baeldung.com/spring-data-case-insensitive-queries)
-
-### TODO
-- Mongo and Docker
+Links:
+- [Spring Data Case Insensitive Queries](https://www.baeldung.com/spring-data-case-insensitive-queries)
+- [Java OpenAPI Generator Server](https://www.baeldung.com/java-openapi-generator-server)
+- [Spring Boot H2 Database](https://www.baeldung.com/spring-boot-h2-database)
+- [MapStruct Guide](https://www.baeldung.com/mapstruct)
+- [MapStruct Custom Mapper](https://www.baeldung.com/mapstruct-custom-mapper)
+- [Install MongoDB Community with Docker](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/)
+- [Getting Started with MongoDB and Spring Boot](https://www.mongodb.com/resources/products/compatibilities/spring-boot#getting-started-with-mongodb-and-spring-boot)
+- [Spring Boot Logging Example](https://mkyong.com/spring-boot/spring-boot-logging-example/)
+- [Exception Handling in Spring MVC](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc)
+- [Spring Boot Exception Handling](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
+- [Exception Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
+- [Spring Boot with Keycloak](https://www.baeldung.com/spring-boot-keycloak)
+- [Securing Spring Boot with Keycloak](https://medium.com/@wahyubagus1910/securing-spring-boot-with-keycloak-b352f05575f2)
+- [JPA Relationships Example](https://github.com/codeforgeyt/jpa-relationships)
