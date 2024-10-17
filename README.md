@@ -260,12 +260,22 @@ For more information, visit: [Dockerizing Your Spring Boot Application](https://
   <finalName>newName</finalName>
   ```
 2. Create a `Dockerfile`:
-  ```dockerfile
-  FROM openjdk:21
-  ADD target/demo.jar demodkr.jar
-  EXPOSE 8080
-  ENTRYPOINT [ "java", "-jar", "demodkr.jar" ]
-  ```
+   ```dockerfile
+   # Use OpenJDK 21 as the base image
+   FROM openjdk:21
+   
+   # If you prefer to use Java 17, change the base image to openjdk:17
+   # FROM openjdk:17
+   
+   # Add the JAR file to the container
+   ADD target/demo.jar demodkr.jar
+   
+   # Expose port 8080
+   EXPOSE 8080
+   
+   # Set the entry point for the application
+   ENTRYPOINT [ "java", "-jar", "demodkr.jar" ]
+
 3. Generate Docker image:
   ```bash
   docker build -t demodkr/latest .
