@@ -107,8 +107,8 @@ In the same folder as `Application.java`, create the following structure:
        <configuration>
            <inputSpec>${project.basedir}/src/main/resources/album.yaml</inputSpec>
            <generatorName>java</generatorName>
-           <apiPackage>it.giovanniromano.portale.client.album.api</apiPackage>
-           <modelPackage>it.giovanniromano.portale.client.album.model</modelPackage>
+           <apiPackage>com.example.demo.client.api</apiPackage>
+           <modelPackage>com.example.demp.client.model</modelPackage>
            <library>resttemplate</library>
            <!-- USE THIS ONLY IF YOU DON'T HAVE THE javax.annotation-api DEPENDENCY -->
            <configOptions>
@@ -271,6 +271,12 @@ For more information, visit: [Dockerizing Your Spring Boot Application](https://
   docker build -t demodkr/latest .
   ```
 4. Inside the Docker Desktop app, run the image, create a container, and set the port (e.g., :8080).
+
+Learn more useful commands at:
+- [Useful Commands by Pier](https://gist.github.com/P13rLu1/643ef6d46439560df2bbef00d78e7c41)
+
+Made with ❤️ from Pier.
+
 
 ## REST Template
 Use this sample code by Silvio ;)
