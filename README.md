@@ -203,7 +203,7 @@ If you want to change the port, in `application.properties` do this:
        </configuration>
    </plugin>
     ```
-   ### Mapper Interface
+### Mapper Interface
 
 Inside the `mapper` folder, create a Mapper interface:
 
