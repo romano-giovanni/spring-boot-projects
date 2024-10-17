@@ -108,7 +108,7 @@ In the same folder as `Application.java`, create the following structure:
            <inputSpec>${project.basedir}/src/main/resources/album.yaml</inputSpec>
            <generatorName>java</generatorName>
            <apiPackage>com.example.demo.client.api</apiPackage>
-           <modelPackage>com.example.demp.client.model</modelPackage>
+           <modelPackage>com.example.demo.client.model</modelPackage>
            <library>resttemplate</library>
            <!-- USE THIS ONLY IF YOU DON'T HAVE THE javax.annotation-api DEPENDENCY -->
            <configOptions>
