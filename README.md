@@ -1,5 +1,17 @@
 # Java Spring Boot Quick Start
 Using OpenAPI Generator Maven Plugin, H2 Database
+```raw
+
+ ________  ________  _____ ______   ________  ________   ________     
+|\   __  \|\   __  \|\   _ \  _   \|\   __  \|\   ___  \|\   __  \    
+\ \  \|\  \ \  \|\  \ \  \\\__\ \  \ \  \|\  \ \  \\ \  \ \  \|\  \   
+ \ \   _  _\ \  \\\  \ \  \\|__| \  \ \   __  \ \  \\ \  \ \  \\\  \  
+  \ \  \\  \\ \  \\\  \ \  \    \ \  \ \  \ \  \ \  \\ \  \ \  \\\  \ 
+   \ \__\\ _\\ \_______\ \__\    \ \__\ \__\ \__\ \__\\ \__\ \_______\
+    \|__|\|__|\|_______|\|__|     \|__|\|__|\|__|\|__| \|__|\|_______|
+                                                                      
+```
+                                                                      
 
 ## Maven Commands
 - `mvn clean`
@@ -107,8 +119,8 @@ In the same folder as `Application.java`, create the following structure:
        <configuration>
            <inputSpec>${project.basedir}/src/main/resources/album.yaml</inputSpec>
            <generatorName>java</generatorName>
-           <apiPackage>it.giovanniromano.portale.client.album.api</apiPackage>
-           <modelPackage>it.giovanniromano.portale.client.album.model</modelPackage>
+           <apiPackage>com.example.demo.client.api</apiPackage>
+           <modelPackage>com.example.demo.client.model</modelPackage>
            <library>resttemplate</library>
            <!-- USE THIS ONLY IF YOU DON'T HAVE THE javax.annotation-api DEPENDENCY -->
            <configOptions>
@@ -203,7 +215,7 @@ If you want to change the port, in `application.properties` do this:
        </configuration>
    </plugin>
     ```
-   ### Mapper Interface
+### Mapper Interface
 
 Inside the `mapper` folder, create a Mapper interface:
 
@@ -260,17 +272,33 @@ For more information, visit: [Dockerizing Your Spring Boot Application](https://
   <finalName>newName</finalName>
   ```
 2. Create a `Dockerfile`:
-  ```dockerfile
-  FROM openjdk:21
-  ADD target/demo.jar demodkr.jar
-  EXPOSE 8080
-  ENTRYPOINT [ "java", "-jar", "demodkr.jar" ]
-  ```
+   ```dockerfile
+   # Use OpenJDK 21 as the base image
+   FROM openjdk:21
+   
+   # If you prefer to use Java 17, change the base image to openjdk:17
+   # FROM openjdk:17
+   
+   # Add the JAR file to the container
+   ADD target/demo.jar demodkr.jar
+   
+   # Expose port 8080
+   EXPOSE 8080
+   
+   # Set the entry point for the application
+   ENTRYPOINT [ "java", "-jar", "demodkr.jar" ]
+
 3. Generate Docker image:
   ```bash
   docker build -t demodkr/latest .
   ```
 4. Inside the Docker Desktop app, run the image, create a container, and set the port (e.g., :8080).
+
+Learn more useful commands at:
+- [Useful Commands by Pier](https://gist.github.com/P13rLu1/643ef6d46439560df2bbef00d78e7c41)
+
+Made with ❤️ from Pier.
+
 
 ## REST Template
 Use this sample code by Silvio ;)
@@ -303,10 +331,18 @@ Use this sample code by Silvio ;)
 
 ## Misc
 
-_Ignore this :P_
-
-### Links:
-- [Case Insensitive Queries in Spring Data](https://www.baeldung.com/spring-data-case-insensitive-queries)
-
-### TODO
-- Mongo and Docker
+Links:
+- [Spring Data Case Insensitive Queries](https://www.baeldung.com/spring-data-case-insensitive-queries)
+- [Java OpenAPI Generator Server](https://www.baeldung.com/java-openapi-generator-server)
+- [Spring Boot H2 Database](https://www.baeldung.com/spring-boot-h2-database)
+- [MapStruct Guide](https://www.baeldung.com/mapstruct)
+- [MapStruct Custom Mapper](https://www.baeldung.com/mapstruct-custom-mapper)
+- [Install MongoDB Community with Docker](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/)
+- [Getting Started with MongoDB and Spring Boot](https://www.mongodb.com/resources/products/compatibilities/spring-boot#getting-started-with-mongodb-and-spring-boot)
+- [Spring Boot Logging Example](https://mkyong.com/spring-boot/spring-boot-logging-example/)
+- [Exception Handling in Spring MVC](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc)
+- [Spring Boot Exception Handling](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
+- [Exception Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
+- [Spring Boot with Keycloak](https://www.baeldung.com/spring-boot-keycloak)
+- [Securing Spring Boot with Keycloak](https://medium.com/@wahyubagus1910/securing-spring-boot-with-keycloak-b352f05575f2)
+- [JPA Relationships Example](https://github.com/codeforgeyt/jpa-relationships)
