@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: Hotel Booking API
+  version: 1.0.0
+  description: API per la gestione delle prenotazioni di hotel.
+
+paths:
+  /bookings:
+    get:
+      summary: Recupera tutte le prenotazioni
+      operationId: getAllBookings
+      responses:
+        '200':
+          description: Lista di prenotazioni recuperata con successo
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingDTO'
+    post:
+      summary: Crea una nuova prenotazione
+      operationId: createBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingDTO'
+      responses:
+        '201':
+          description: Prenotazione creata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+
+  /bookings/{id}:
+    get:
+      summary: Recupera una prenotazione specifica
+      operationId: getBookingById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli della prenotazione recuperati con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+        '404':
+          description: Prenotazione non trovata
+
+    put:
+      summary: Aggiorna una prenotazione esistente
+      operationId: updateBooking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingDTO'
+      responses:
+        '200':
+          description: Prenotazione aggiornata con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+
+    delete:
+      summary: Elimina una prenotazione
+      operationId: deleteBooking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Prenotazione eliminata con successo
+        '404':
+          description: Prenotazione non trovata
+
+components:
+  schemas:
+    BookingDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        guestName:
+          type: string
+        roomNumber:
+          type: integer
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        totalPrice:
+          type: number
+          format: float

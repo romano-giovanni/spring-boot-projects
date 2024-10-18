@@ -1,0 +1,304 @@
+openapi: 3.0.3
+info:
+  title: Album API
+  description: |-
+    An API that allows performing CRUD operations on Artists and Albums.
+  version: 1.0.0
+  contact:
+    email: mail@giovanniromano.dev
+
+paths:
+  /artist:
+    post:
+      tags:
+        - artist
+      summary: Create a new artist
+      description: Create a new artist
+      operationId: createArtist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistDTO'
+      responses:
+        '201':
+          description: Artist successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDTO'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+    get:
+      tags:
+        - artist
+      summary: Retrieve the list of artists
+      description: Retrieve the list of artists
+      operationId: listArtists
+      responses:
+        '200':
+          description: List of artists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListArtistDTO'
+        '500':
+          description: Internal server error
+
+  /artist/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The artist's ID
+        schema:
+          type: integer
+
+    get:
+      tags:
+        - artist
+      summary: Retrieve the artist with the specified ID
+      description: Retrieve the artist with the specified ID
+      operationId: getArtist
+      responses:
+        '200':
+          description: Artist found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDTO'
+        '404':
+          description: Artist not found
+        '500':
+          description: Internal server error
+
+    put:
+      tags:
+        - artist
+      summary: Update the artist with the specified ID
+      description: Update the artist with the specified ID
+      operationId: updateArtist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistDTO'
+      responses:
+        '200':
+          description: Artist successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDTO'
+        '400':
+          description: Bad request
+        '404':
+          description: Artist not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - artist
+      summary: Delete the artist with the specified ID
+      description: Delete the artist with the specified ID
+      operationId: deleteArtist
+      responses:
+        '204':
+          description: Artist successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDTO'
+        '404':
+          description: Artist not found
+        '500':
+          description: Internal server error
+
+  /album:
+    post:
+      tags:
+        - album
+      summary: Create a new album
+      description: Create a new album
+      operationId: createAlbum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumDTO'
+      responses:
+        '201':
+          description: Album successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+    get:
+      tags:
+        - album
+      summary: Retrieve the list of albums
+      description: Retrieve the list of albums
+      operationId: listAlbums
+      responses:
+        '200':
+          description: List of albums
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAlbumDTO'
+        '500':
+          description: Internal server error
+
+  /album/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The album's ID
+        schema:
+          type: integer
+
+    get:
+      tags:
+        - album
+      summary: Retrieve the album with the specified ID
+      description: Retrieve the album with the specified ID
+      operationId: getAlbum
+      responses: 
+        '200':
+          description: Album found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: Album not found
+        '500':
+          description: Internal server error
+
+    put:
+      tags:
+        - album
+      summary: Update the album with the specified ID
+      description: Update the album with the specified ID
+      operationId: updateAlbum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumDTO'
+      responses:
+        '200':
+          description: Album successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '400':
+          description: Bad request
+        '404':
+          description: Album not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - album
+      summary: Delete the album with the specified ID
+      description: Delete the album with the specified ID
+      operationId: deleteAlbum
+      responses:
+        '204':
+          description: Album successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDTO'
+        '404':
+          description: Album not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    AlbumDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The album's ID
+          example: 2
+        title:
+          type: string
+          description: The album title
+          example: "Thriller"
+        releaseDate:
+          type: string
+          description: The album release date
+          example: "1982-11-30"
+        trackTitles:
+          type: array
+          description: The titles of the album tracks
+          items:
+            type: string
+          example:
+            - "Wanna Be Startin' Somethin'"
+            - "Baby Be Mine"
+            - "The Girl Is Mine"
+            - "Thriller"
+            - "Beat It"
+            - "Billie Jean"
+            - "Human Nature"
+            - "P.Y.T. (Pretty Young Thing)"
+            - "The Lady in My Life"
+        artistName:
+          type: string
+          description: The artist's name
+          example: "Michael Jackson"
+
+    ListAlbumDTO:
+      type: array
+      items:
+        $ref: '#/components/schemas/AlbumDTO'
+
+    ArtistDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The artist's ID
+          example: 2
+        name:
+          type: string
+          description: The artist's name
+          example: "Taylor Swift"
+        genres:
+          type: array
+          description: The artist's musical genres
+          items:
+            type: string
+          example:
+            - "Pop"
+            - "Country"
+        country:
+          type: string
+          description: The artist's country of origin
+          example: "United States"
+
+    ListArtistDTO:
+      type: array
+      items:
+        $ref: '#/components/schemas/ArtistDTO'
